@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import cn from 'classnames';
-import './Input.scss';
+import './input.scss';
 
 class Input extends Component {
   render() {
-    const {error} = this.props;
+    const {error, ...inputProps} = this.props;
     return (
       <input
         className={cn('Input', {
-          'Input-error': error
+          'Input--error': error
         })}
+        {...inputProps}
       />
     );
   }

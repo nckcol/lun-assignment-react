@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
+import StartStep from './components/start-step/start-step';
 
 class App extends Component {
   render() {
@@ -15,7 +16,7 @@ class App extends Component {
           </div>
           <div className="App-content">
             <Switch>
-              <Route path="/" exact render={() => <span>Start form</span>} />
+              <Route path="/" exact component={StartStep} />
               <Route
                 path="/location"
                 exact
