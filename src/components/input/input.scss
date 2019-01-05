@@ -10,8 +10,13 @@
   border: none;
   width: 100%;
   border: 1px solid transparent;
-}
 
-.Input--error {
-  border-color: #ff0000;
+  &::placeholder {
+    color: #bbb;
+    opacity: 1;
+  }
+
+  &--error {
+    border-color: #ff0000;
+  }
 }
