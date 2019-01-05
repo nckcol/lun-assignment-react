@@ -43,6 +43,10 @@ class App extends Component {
               <Redirect to="/" />
             </Switch>
           </div>
+          <div className="App-actions">
+            <Button variant="accent">Назад</Button>
+            <Button variant="accent">Далее</Button>
+          </div>
         </div>
       </div>
     );

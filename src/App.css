@@ -8,6 +8,23 @@
 }
 
 .App-container {
-  min-height: 480px;
+  min-height: 420px;
   width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.App-progress {
+  margin-bottom: 24px;
+  flex: 0 0 auto;
+}
+
+.App-content {
+  margin-bottom: 24px;
+  flex: 1 1 auto;
+}
+
+.App-actions {
+  flex: 0 0 auto;
 }
