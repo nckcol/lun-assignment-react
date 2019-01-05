@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
 import StartStep from './components/start-step/start-step';
+import Button from './components/button/button';
 
 class App extends Component {
   render() {
@@ -9,10 +10,16 @@ class App extends Component {
       <div className="App">
         <div className="App-container">
           <div className="App-progress">
-            <button type="button">1</button>
-            <button type="button">2</button>
-            <button type="button">3</button>
-            <button type="button">4</button>
+            <Button type="button">1</Button>
+            <Button type="button" disabled>
+              2
+            </Button>
+            <Button type="button" disabled>
+              3
+            </Button>
+            <Button type="button" disabled>
+              4
+            </Button>
           </div>
           <div className="App-content">
             <Switch>
