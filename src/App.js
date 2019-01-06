@@ -5,7 +5,11 @@ import StartStep from './components/start-step/start-step';
 import Button from './components/button/button';
 
 class App extends Component {
+  state = {
+    personalInfo: null
+  };
   render() {
+    const {personalInfo} = this.state;
     return (
       <div className="App">
         <div className="App-container">
@@ -23,7 +27,16 @@ class App extends Component {
           </div>
           <div className="App-content">
             <Switch>
-              <Route path="/" exact component={StartStep} />
+              <Route
+                path="/"
+                exact
+                render={({history}) => (
+                  <StartStep
+                    personalInfo={personalInfo}
+                    onSubmit={this.handleStartStepSubmit(history)}
+                  />
+                )}
+              />
               <Route
                 path="/location"
                 exact
@@ -43,14 +56,17 @@ class App extends Component {
               <Redirect to="/" />
             </Switch>
           </div>
-          <div className="App-actions">
-            <Button variant="accent">Назад</Button>
-            <Button variant="accent">Далее</Button>
-          </div>
         </div>
       </div>
     );
   }
+
+  handleStartStepSubmit = (history) => (personalInfo) => {
+    this.setState({
+      personalInfo
+    });
+    history.push('/location');
+  };
 }
 
 export default App;

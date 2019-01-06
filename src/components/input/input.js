@@ -10,6 +10,7 @@ class Input extends Component {
         className={cn('Input', {
           'Input--error': error
         })}
+        type="text"
         {...inputProps}
       />
     );

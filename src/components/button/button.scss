@@ -15,4 +15,15 @@
     color: #bbb;
     cursor: default;
   }
+
+  &--variant-accent {
+    color: #ff9800;
+    font-weight: 700;
+  }
+
+  &--variant-primary {
+    background-color: #ff9800;
+    color: #fff;
+    font-weight: 700;
+  }
 }
