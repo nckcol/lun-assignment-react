@@ -1,0 +1,38 @@
+.AutocompleteOption {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 8px 16px;
+  line-height: 24px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.AutocompleteOption--active {
+  font-weight: 700;
+}
+
+.AutocompleteOption--highlighted {
+  background-color: #edf0f5;
+}
+
+.AutocompleteOption:hover {
+  background-color: #edf0f5;
+}
+
+.AutocompleteOption:focus {
+  outline: none;
+  background-color: #edf0f5;
+}
+
+.AutocompleteOption-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+  margin-right: 16px;
+}

@@ -1,0 +1,118 @@
+.Autocomplete {
+  width: 100%;
+  position: relative;
+}
+
+.Autocomplete-current {
+  position: relative;
+  z-index: 3;
+  outline: none;
+  overflow: hidden;
+}
+
+.Autocomplete-input {
+  align-items: center;
+  background-color: transparent;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  height: 50px;
+  border-radius: 25px;
+}
+
+.Autocomplete--size-small .Autocomplete-input {
+  height: 40px;
+  border-radius: 20px;
+}
+
+.Autocomplete-activeOption {
+  margin-right: auto;
+  font-size: 14px;
+}
+
+.Autocomplete-currentIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Autocomplete-arrowIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(0);
+  transform-origin: 50%;
+  transition: transform 0.2s ease-out;
+}
+
+.Autocomplete--isOpened .Autocomplete-arrowIcon {
+  transform: rotate(180deg);
+}
+
+/* options */
+
+.Autocomplete-bottom {
+  position: relative;
+}
+
+.Autocomplete-optionListHolder {
+  top: -25px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding-top: 25px;
+  border: 1px solid #dce4eb;
+  border-top: 0;
+  background-color: #fff;
+  z-index: 2;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.Autocomplete-optionList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+
+  /* Remove if using custom scroll bar */
+  overflow-y: auto;
+  max-height: 280px;
+  pointer-events: none;
+}
+
+.Autocomplete--isOpened .Autocomplete-optionList {
+  pointer-events: auto;
+}
+
+.Autocomplete-option {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dce4eb;
+}
+
+.Autocomplete-option:last-child {
+  border-bottom: 0;
+}
+
+.Autocomplete-icon {
+  width: 16px;
+  height: 16px;
+  z-index: 0;
+}
+
+.Autocomplete-appendedIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #848fa5;
+}
