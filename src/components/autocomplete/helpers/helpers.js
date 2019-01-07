@@ -1,11 +1,3 @@
-export const mapSelectSizeToIcon = (selectSize) => {
-  const selectSizeToIcon = {
-    normal: 'xsmall',
-    small: 'tiny'
-  };
-  return selectSizeToIcon[selectSize];
-};
-
 export const sumMap = (list, fn) =>
   list.reduce((acc, item, index) => acc + fn(item, index), 0);
 

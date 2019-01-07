@@ -1,8 +1,21 @@
 import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
-import './App.css';
-import StartStep from './components/start-step/start-step';
 import Button from './components/button/button';
+import StartStep from './components/start-step/start-step';
+import LocationStep from './components/location-step/location-step';
+import countryTable from './countries.json';
+import cityTable from './cities.json';
+import './App.css';
+
+const countryList = Object.entries(countryTable).map(([id, name]) => ({
+  id: parseInt(id, 10),
+  name
+}));
+
+const cityList = Object.entries(cityTable).map(([id, city]) => ({
+  ...city,
+  id: parseInt(id, 10)
+}));
 
 class App extends Component {
   state = {
@@ -40,7 +53,9 @@ class App extends Component {
               <Route
                 path="/location"
                 exact
-                render={() => <span>Location</span>}
+                render={() => (
+                  <LocationStep countryList={countryList} cityList={cityList} />
+                )}
               />
               <Route path="/social" exact render={() => <span>Social</span>} />
               <Route

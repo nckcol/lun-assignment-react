@@ -40,7 +40,7 @@ const createCompare = (selector) => (operation) => (a, b) =>
 
 const getRelevantOptions = (options, query) => {
   const calculateMatchFactorByString = calculateMatchFactor(query);
-  const selectValue = select('value');
+  const selectValue = select('name');
   const selectMatchFactor = select('matchFactor');
   const compareMatchFactor = createCompare(selectMatchFactor)((a, b) => b - a);
 

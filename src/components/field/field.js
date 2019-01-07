@@ -1,25 +1,35 @@
 import React, {Component} from 'react';
 import Input from '../input/input';
 import {Field as FormikField} from 'formik';
+import isFunction from '../../utils/is-function';
 
 import './field.scss';
 
 class Field extends Component {
+  static defaultProps = {
+    component: Input
+  };
+
   render() {
-    const {name, ...inputProps} = this.props;
+    const {name, component: InputComponent, renderInput, ...rest} = this.props;
 
     return (
       <FormikField
         name={name}
-        render={({field, form: {touched, errors}}) => {
-          const showError = touched[field.name] && errors[field.name];
+        render={({field, form}) => {
+          const showError = form.touched[field.name] && form.errors[field.name];
+          const inputProps = {...rest, ...field, error: showError};
 
           return (
             <label className="Field">
-              <Input {...inputProps} {...field} error={showError} />
+              {isFunction(renderInput) ? (
+                renderInput({inputProps, form})
+              ) : (
+                <InputComponent {...inputProps} form={form} />
+              )}
               {showError && (
                 <span className="Field-errorMessage">
-                  &mdash; {errors[field.name]}
+                  &mdash; {form.errors[field.name]}
                 </span>
               )}
             </label>

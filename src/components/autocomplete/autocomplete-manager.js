@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import isFunction from 'modules/utils/is-function';
+import isFunction from '../../utils/is-function';
 import {KEY_RETURN, KEY_UP, KEY_DOWN} from 'keycode-js';
 
-import {ring, select} from './helpers';
+import {ring, select} from './helpers/helpers';
 
 import Autocomplete from './autocomplete';
-import scrollIntoView from './scroll-into-view';
+import scrollIntoView from './helpers/scroll-into-view';
 
-// import getRelevantOptions from './get-relevant-options';
+import getRelevantOptions from './helpers/get-relevant-options';
 
-const options = [];
+function filterOptions(options, query, filterFunction) {
+  if (!query) {
+    return options;
+  }
+
+  if (!isFunction(filterFunction)) {
+    return getRelevantOptions(options, query);
+  }
+
+  return filterFunction(options, query);
+}
 
 class AutocompleteManager extends Component {
   static propTypes = {
@@ -22,14 +32,12 @@ class AutocompleteManager extends Component {
 
   static defaultProps = {
     options: null,
-    selectTitle: select('value'),
-    onFilter: null
+    selectTitle: select('title'),
+    selectValue: select('value')
   };
 
   state = {
-    options,
-    value: this.props.query || '',
-
+    query: '',
     showOptions: false,
     highlightedOption: -1,
     activeOptionIndex: -1,
@@ -42,48 +50,77 @@ class AutocompleteManager extends Component {
   _listElement = null;
 
   render() {
-    const {...rest} = this.props;
-    const {highlightedOption, activeOptionIndex} = this.state;
+    const {
+      options,
+      filterFunction,
+      selectTitle,
+      selectValue,
+      ...rest
+    } = this.props;
+    const {query, highlightedOption, activeOptionIndex} = this.state;
 
-    const filteredOptions = this.getFilteredOptions();
+    const filteredOptions = filterOptions(options, query, filterFunction);
     const value = this.getCurrentValue();
-    const showOptions = this.isNeedToShowOptions();
+    const showOptions = this.hasToShowOptions();
 
-    delete rest.onChange;
     delete rest.query;
-    delete rest.value;
-    delete rest.defaultValue;
 
     return (
       <Autocomplete
         {...rest}
-        options={filteredOptions}
-        value={value}
-        highlightedOption={highlightedOption}
-        activeOptionIndex={activeOptionIndex}
         showOptions={showOptions}
-        onChange={this.handleChange}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
-        onInputClick={this.handleInputClick}
-        onOptionClick={this.handleOptionClick}
-        onKeyDown={this.handleKeyDown}
-        optionRef={this.handleOptionRef}
+        value={value}
         inputRef={this.handleInputRef}
         listRef={this.handleListRef}
-      />
+        onClick={this.handleInputClick}
+        onKeyDown={this.handleKeyDown}
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+      >
+        {filteredOptions.map((option, index) => (
+          <Autocomplete.Option
+            key={selectValue(option)}
+            active={activeOptionIndex === selectValue(option)}
+            highlighted={highlightedOption === index}
+            innerRef={this.handleOptionRef(index)}
+            onClick={this.handleOptionClick(option)}
+            onMouseDown={this.handleOptionMouseDown}
+          >
+            {selectTitle(option)}
+          </Autocomplete.Option>
+        ))}
+      </Autocomplete>
     );
   }
 
   getCurrentValue() {
-    const {value} = this.state;
+    const {query} = this.state;
+    const {value} = this.props;
+
     const highlightedOption = this.getHighlightedOption();
 
     if (highlightedOption !== null) {
       return this.selectTitle(highlightedOption);
     }
 
-    return value;
+    if (value) {
+      return this.getTitleByValue(value);
+    }
+
+    return query;
+  }
+
+  getTitleByValue(value) {
+    const {options, selectValue, selectTitle} = this.props;
+
+    for (let item of options) {
+      if (selectValue(item) !== value) {
+        continue;
+      }
+
+      return selectTitle(item);
+    }
   }
 
   getHighlightedOption() {
@@ -98,38 +135,26 @@ class AutocompleteManager extends Component {
     return options[highlightedOption];
   }
 
-  getFilteredOptions() {
-    const {filterFunction} = this.props;
+  getOptions() {
+    const {options, filterFunction} = this.props;
     const {query} = this.state;
 
-    const options = this.getOptions();
-
-    if (!isFunction(filterFunction)) {
-      return options;
-    }
-
-    return filterFunction(options, query);
-
-    // return getRelevantOptions(options, query);
+    return filterOptions(options, query, filterFunction);
   }
 
-  getOptions() {
-    if (this.props.options) {
-      return this.props.options;
+  change(option) {
+    const {onChange, selectValue} = this.props;
+
+    if (!isFunction(onChange)) {
+      return;
     }
 
-    return this.state.options;
-  }
-
-  change(value, option) {
-    const {onChange} = this.props;
-
-    if (isFunction(onChange)) {
-      onChange({
-        value,
-        option
-      });
+    if (!option) {
+      onChange(null);
+      return;
     }
+
+    onChange(selectValue(option), option);
   }
 
   filter(query) {
@@ -139,7 +164,7 @@ class AutocompleteManager extends Component {
     this.resetActive();
 
     this.setState({
-      value: query,
+      query,
       showOptions: true
     });
 
@@ -153,7 +178,9 @@ class AutocompleteManager extends Component {
   select() {
     if (this.isHighlighted()) {
       const {highlightedOption} = this.state;
-      this.setActive(highlightedOption);
+      const options = this.getOptions();
+      const option = options[highlightedOption];
+      this.setActive(option);
       return;
     }
 
@@ -162,28 +189,18 @@ class AutocompleteManager extends Component {
     }
 
     this.resetActive();
-
-    const {value} = this.state;
-
-    this.change(value);
   }
 
   selectTitle(option) {
     return this.props.selectTitle(option);
   }
 
-  setActive(index) {
-    const options = this.getOptions();
-
-    const activeOption = options[index];
-
+  setActive(option) {
     this.setState({
-      activeOption,
-      activeOptionIndex: index,
-      value: this.selectTitle(activeOption)
+      query: this.selectTitle(option)
     });
 
-    this.change(this.selectTitle(activeOption), activeOption);
+    this.change(option);
   }
 
   resetActive() {
@@ -191,6 +208,8 @@ class AutocompleteManager extends Component {
       activeOption: null,
       activeOptionIndex: -1
     });
+
+    this.change(null);
   }
 
   showOptions() {
@@ -213,6 +232,7 @@ class AutocompleteManager extends Component {
 
   apply() {
     const {highlightedOption} = this.state;
+    this._hasChanges = false;
 
     this.select(highlightedOption);
 
@@ -240,6 +260,7 @@ class AutocompleteManager extends Component {
   }
 
   highlightOption(index) {
+    this._hasChanges = true;
     // this.showOptions();
 
     this.setState({
@@ -323,7 +344,7 @@ class AutocompleteManager extends Component {
     this.__scheduledScrollToOption = null;
   }
 
-  isNeedToShowOptions() {
+  hasToShowOptions() {
     const {showOptions} = this.state;
 
     const options = this.getOptions();
@@ -364,7 +385,12 @@ class AutocompleteManager extends Component {
     this.setState({
       inFocus: false
     });
-    this.apply();
+
+    if (this._hasChanges) {
+      this.apply();
+    } else {
+      this.hideOptions();
+    }
   }
 
   handleFocus = () => {
@@ -386,17 +412,21 @@ class AutocompleteManager extends Component {
     if (!isFunction(onBlur)) {
       return;
     }
+
     onBlur();
   };
 
-  handleChange = (query) => {
+  handleChange = (e) => {
+    const query = e.target.value;
     this.filter(query);
   };
 
-  handleKeyDown = (code, e) => {
+  handleKeyDown = (e) => {
+    const code = e.which || e.keyCode;
+
     if (KEY_UP === code) {
       e.preventDefault();
-      if (this.isNeedToShowOptions()) {
+      if (this.hasToShowOptions()) {
         this.prevOption();
         return;
       }
@@ -406,7 +436,7 @@ class AutocompleteManager extends Component {
 
     if (KEY_DOWN === code) {
       e.preventDefault();
-      if (this.isNeedToShowOptions()) {
+      if (this.hasToShowOptions()) {
         this.nextOption();
         return;
       }
@@ -422,20 +452,25 @@ class AutocompleteManager extends Component {
     return;
   };
 
-  handleOptionClick = (e, index) => {
-    this.setActive(index);
+  handleOptionClick = (option) => (e) => {
+    e.preventDefault();
+    this.setActive(option);
     this.hideOptions();
   };
 
-  handleInputClick = () => {
-    if (!this.isFocused() || this.isNeedToShowOptions()) {
+  handleInputClick = (e) => {
+    if (!this.isFocused() || this.hasToShowOptions()) {
       return;
     }
 
     this.showOptions();
   };
 
-  handleOptionRef = (element, index) => {
+  handleOptionMouseDown = (e) => {
+    e.preventDefault();
+  };
+
+  handleOptionRef = (index) => (element) => {
     this._optionElements[index] = element;
     this.scrollToOptionSetTarget(element, index);
   };

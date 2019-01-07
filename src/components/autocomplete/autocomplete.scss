@@ -5,19 +5,13 @@
 
 .Autocomplete-current {
   position: relative;
+}
+
+.Autocomplete--isOpened .Autocomplete-current {
   z-index: 3;
-  outline: none;
-  overflow: hidden;
 }
 
 .Autocomplete-input {
-  align-items: center;
-  background-color: transparent;
-  position: relative;
-  z-index: 3;
-  overflow: hidden;
-  height: 50px;
-  border-radius: 25px;
 }
 
 .Autocomplete--size-small .Autocomplete-input {
@@ -38,21 +32,6 @@
   justify-content: center;
 }
 
-.Autocomplete-arrowIcon {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(0);
-  transform-origin: 50%;
-  transition: transform 0.2s ease-out;
-}
-
-.Autocomplete--isOpened .Autocomplete-arrowIcon {
-  transform: rotate(180deg);
-}
-
 /* options */
 
 .Autocomplete-bottom {
@@ -60,18 +39,16 @@
 }
 
 .Autocomplete-optionListHolder {
-  top: -25px;
   position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
-  padding-top: 25px;
-  border: 1px solid #dce4eb;
-  border-top: 0;
+  margin-top: 4px;
   background-color: #fff;
   z-index: 2;
-  border-radius: 4px;
+  border-radius: 2px;
   box-sizing: border-box;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -95,24 +72,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-bottom: 1px solid #dce4eb;
+  border-bottom: 1px solid #f3f3f3;
 }
 
 .Autocomplete-option:last-child {
   border-bottom: 0;
-}
-
-.Autocomplete-icon {
-  width: 16px;
-  height: 16px;
-  z-index: 0;
-}
-
-.Autocomplete-appendedIcon {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #848fa5;
 }

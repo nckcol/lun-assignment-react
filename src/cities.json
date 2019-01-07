@@ -1,5 +1,5 @@
 {
-  "1": {"country": 1, "name": "Ukraine"},
+  "1": {"country": 1, "name": "Kyiv"},
   "2": {"country": 3, "name": "Paris"},
   "3": {"country": 4, "name": "Madrid"},
   "4": {"country": 6, "name": "Houston"},
@@ -16,6 +16,5 @@
   "107": {"country": 1, "name": "Луцк"},
   "108": {"country": 1, "name": "Poltava"},
   "109": {"country": 1, "name": "Черновцы"},
-  "299": {"country": 1, "name": "Чернигов"},
-  "333": {"country": 1, "name": "Чернигов"}
+  "299": {"country": 1, "name": "Чернигов"}
 }

@@ -4,12 +4,13 @@ import './input.scss';
 
 class Input extends Component {
   render() {
-    const {error, ...inputProps} = this.props;
+    const {error, innerRef, ...inputProps} = this.props;
     return (
       <input
         className={cn('Input', {
           'Input--error': error
         })}
+        ref={innerRef}
         type="text"
         {...inputProps}
       />
