@@ -12,19 +12,20 @@ class StartStep extends Component {
     return (
       <Formik
         initialValues={initialValues}
-        onSubmit={onSubmit}
         validationSchema={PersonalInfoSchema}
+        validateOnChange={false}
+        onSubmit={onSubmit}
       >
         <Form>
           <h2>1. Введите имя и e-mail</h2>
           <Form.Row>
-            <Field name="firstName" placeholder="Имя" />
+            <Field name="firstName" placeholder="Имя" autoFocus />
           </Form.Row>
           <Form.Row>
             <Field name="email" type="email" placeholder="E-mail" />
           </Form.Row>
 
-          <Button variant="accent" disabled={!hasPrevious}>
+          <Button variant="accent" type="button" disabled={!hasPrevious}>
             Назад
           </Button>
 

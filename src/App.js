@@ -19,10 +19,11 @@ const cityList = Object.entries(cityTable).map(([id, city]) => ({
 
 class App extends Component {
   state = {
-    personalInfo: null
+    personalInfo: null,
+    location: null
   };
   render() {
-    const {personalInfo} = this.state;
+    const {personalInfo, location} = this.state;
     return (
       <div className="App">
         <div className="App-container">
@@ -53,8 +54,14 @@ class App extends Component {
               <Route
                 path="/location"
                 exact
-                render={() => (
-                  <LocationStep countryList={countryList} cityList={cityList} />
+                render={({history}) => (
+                  <LocationStep
+                    hasPrevious
+                    countryList={countryList}
+                    cityList={cityList}
+                    location={location}
+                    onSubmit={this.handleLocationStepSubmit(history)}
+                  />
                 )}
               />
               <Route path="/social" exact render={() => <span>Social</span>} />
@@ -81,6 +88,13 @@ class App extends Component {
       personalInfo
     });
     history.push('/location');
+  };
+
+  handleLocationStepSubmit = (history) => (location) => {
+    this.setState({
+      location
+    });
+    history.push('/social');
   };
 }
 

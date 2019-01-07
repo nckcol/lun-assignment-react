@@ -4,6 +4,7 @@ import Field from '../field/field';
 import Form from '../form/form';
 import Button from '../button/button';
 import Autocomplete from '../autocomplete/autocomplete-manager';
+import LocationSchema from '../../schema/location-schema';
 
 const selectName = (item) => item.name;
 const selectId = (item) => item.id;
@@ -13,10 +14,11 @@ function CountryAutocomplete({form, ...inputProps}) {
     <Autocomplete
       {...inputProps}
       onChange={(value) => {
-        form.setFieldValue(inputProps.name, value);
+        form.setFieldValue('countryId', value);
+        form.setFieldValue('cityId', null);
       }}
       onBlur={() => {
-        form.setFieldTouched(inputProps.name, true);
+        form.setFieldTouched('countryId', true);
       }}
     />
   );
@@ -30,13 +32,17 @@ function CityAutocomplete({form, options, ...inputProps}) {
 
   return (
     <Autocomplete
+      key={countryId}
       {...inputProps}
       options={citiesByCountry}
-      onChange={(value) => {
-        form.setFieldValue(inputProps.name, value);
+      onChange={(value, option) => {
+        form.setFieldValue('cityId', value);
+        if (value) {
+          form.setFieldValue('countryId', option.country);
+        }
       }}
       onBlur={() => {
-        form.setFieldTouched(inputProps.name, true);
+        form.setFieldTouched('cityId', true);
       }}
     />
   );
@@ -48,7 +54,12 @@ class LocationStep extends Component {
     const initialValues = location || {countryId: null, cityId: null};
 
     return (
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={LocationSchema}
+        validateOnChange={false}
+        onSubmit={onSubmit}
+      >
         <Form>
           <h2>2. Выберите страну и город</h2>
 
@@ -60,6 +71,7 @@ class LocationStep extends Component {
               selectTitle={selectName}
               selectValue={selectId}
               component={CountryAutocomplete}
+              autoFocus
             />
           </Form.Row>
 
@@ -74,7 +86,7 @@ class LocationStep extends Component {
             />
           </Form.Row>
 
-          <Button variant="accent" disabled={!hasPrevious}>
+          <Button variant="accent" type="button" disabled={!hasPrevious}>
             Назад
           </Button>
 

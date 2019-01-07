@@ -21,7 +21,7 @@ class Field extends Component {
           const inputProps = {...rest, ...field, error: showError};
 
           return (
-            <label className="Field">
+            <div className="Field">
               {isFunction(renderInput) ? (
                 renderInput({inputProps, form})
               ) : (
@@ -32,7 +32,7 @@ class Field extends Component {
                   &mdash; {form.errors[field.name]}
                 </span>
               )}
-            </label>
+            </div>
           );
         }}
       />
