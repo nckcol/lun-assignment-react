@@ -57,12 +57,14 @@ class ResultBox extends Component {
           </div>
         </div>
         <div className="ResultBox-imageColumn">
-          <img
-            className="ResultBox-image"
-            src={confirmation.animal.normal}
-            srcSet={`${confirmation.animal.double} 2x`}
-            alt={confirmation.animal.alt}
-          />
+          <div className="ResultBox-imageHolder">
+            <img
+              className="ResultBox-image"
+              src={confirmation.animal.normal}
+              srcSet={`${confirmation.animal.double} 2x`}
+              alt={confirmation.animal.alt}
+            />
+          </div>
         </div>
       </div>
     );

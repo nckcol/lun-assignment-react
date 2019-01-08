@@ -39,14 +39,18 @@
   &-imageColumn {
     margin-left: 24px;
     flex: 0 0 auto;
-    border-radius: 2px;
-    overflow: hidden;
 
     @media (max-width: 720px) {
       margin-top: 24px;
       margin-left: 0;
       text-align: center;
     }
+  }
+
+  &-imageHolder {
+    display: inline-block;
+    border-radius: 2px;
+    overflow: hidden;
   }
 
   &-socialItemTitle {
