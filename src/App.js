@@ -67,24 +67,6 @@ class App extends Component {
     confirmation: null
   };
 
-  state = {
-    personalInfo: {
-      firstName: 'Nick',
-      email: 'nckcol@gmail.com'
-    },
-    location: {
-      countryId: 1,
-      cityId: 1
-    },
-    social: {
-      facebook: null,
-      vk: null,
-      twitter: 'twitter.com/nckcol',
-      odnoklassniki: null
-    },
-    confirmation: null
-  };
-
   componentWillMount() {
     this.shuffledAnimalList = shuffle(animalList);
   }
