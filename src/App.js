@@ -11,7 +11,7 @@ import countryTable from './countries.json';
 import cityTable from './cities.json';
 import animalTable from './animals.json';
 
-import './App.css';
+import './App.scss';
 
 const countryList = Object.entries(countryTable).map(([id, name]) => ({
   id: parseInt(id, 10),
