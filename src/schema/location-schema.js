@@ -3,11 +3,11 @@ import * as Yup from 'yup';
 const LocationSchema = Yup.object().shape({
   countryId: Yup.mixed()
     .nullable(false)
-    .required('Required'),
+    .required('укажите страну'),
 
   cityId: Yup.mixed()
     .nullable(false)
-    .required('Required')
+    .required('укажите город')
 });
 
 export default LocationSchema;

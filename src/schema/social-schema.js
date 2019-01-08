@@ -7,22 +7,26 @@ Yup.addMethod(Yup.string, 'requiredIfNotNull', function(message) {
 const SocialSchema = Yup.object().shape({
   facebook: Yup.string()
     .nullable(true)
-    .requiredIfNotNull('Заполните поле')
-    .matches(/facebook.com/, 'Укажите ссылку на страницу в Facebook'),
+    .requiredIfNotNull('заполните поле')
+    .url('здесь должна быть ссылка')
+    .matches(/facebook.com/, 'укажите ссылку на страницу в Facebook'),
   vk: Yup.string()
     .nullable(true)
-    .requiredIfNotNull('Заполните поле')
-    .matches(/vk.com/, 'Укажите ссылку на страницу Вконтакте'),
+    .requiredIfNotNull('заполните поле')
+    .url('здесь должна быть ссылка')
+    .matches(/vk.com/, 'укажите ссылку на страницу Вконтакте'),
   twitter: Yup.string()
     .nullable(true)
-    .requiredIfNotNull('Заполните поле')
-    .matches(/twitter.com/, 'Укажите ссылку на страницу в Twitter'),
+    .requiredIfNotNull('заполните поле')
+    .url('здесь должна быть ссылка')
+    .matches(/twitter.com/, 'укажите ссылку на страницу в Twitter'),
   odnoklassniki: Yup.string()
     .nullable(true)
-    .requiredIfNotNull('Заполните поле')
+    .requiredIfNotNull('заполните поле')
+    .url('здесь должна быть ссылка')
     .matches(
       /(ok.ru|odnoklassniki.ru)/,
-      'Укажите ссылку на страницу в Одноклассниках'
+      'укажите ссылку на страницу в Одноклассниках'
     )
 });
 

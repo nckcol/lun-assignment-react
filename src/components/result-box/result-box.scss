@@ -1,0 +1,58 @@
+.ResultBox {
+  padding: 24px;
+  display: flex;
+  align-items: stretch;
+  width: 480px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+
+  &-infoColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+  }
+
+  &-name {
+    margin: 0;
+    font-weight: 400;
+    font-size: 20px;
+  }
+
+  &-email {
+    color: #333;
+  }
+
+  &-location {
+    color: #333;
+  }
+
+  &-imageColumn {
+    margin-left: 24px;
+    flex: 0 0 auto;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  &-socialItemTitle {
+    color: #0000ff;
+  }
+
+  &-socialItemLink {
+    color: #333;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &-image {
+    vertical-align: middle;
+  }
+
+  &-personal {
+  }
+}

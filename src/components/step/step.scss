@@ -1,0 +1,41 @@
+.Step {
+  display: inline-block;
+  min-width: 320px;
+
+  &-header {
+    width: 320px;
+    max-width: 100%;
+    margin: 0 auto 40px;
+  }
+
+  &-title {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+  }
+
+  &-content {
+    min-height: 240px;
+  }
+
+  &-actions {
+    width: 320px;
+    max-width: 100%;
+    margin: 32px auto 0;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &--final &-actions {
+    justify-content: center;
+  }
+
+  &-actionHolder {
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

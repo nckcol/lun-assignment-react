@@ -2,52 +2,57 @@ import React, {Component} from 'react';
 import {Formik} from 'formik';
 import Form from '../form/form';
 import Button from '../button/button';
-import SocialInput from '../social-input/social-input';
-import FieldError from '../field-error/field-error';
 import ConfirmationSchema from '../../schema/confirmation-schema';
-import ImageSwitch from '../image-switch/image-switch';
+import Step from '../step/step';
+import ImageSwitchField from '../image-switch-field/image-switch-field';
 
 class ConfirmationStep extends Component {
   render() {
-    const {hasPrevious, confirmation, animalOptions, onSubmit} = this.props;
+    const {
+      hasPrevious,
+      confirmation,
+      animalOptions,
+      onSubmit,
+      onBack
+    } = this.props;
     const initialValues = confirmation || {
       animal: null
     };
 
-    console.log(confirmation);
-
     return (
-      <Formik
-        initialValues={initialValues}
-        validateOnChange={false}
-        validationSchema={ConfirmationSchema}
-        onSubmit={onSubmit}
-      >
-        {({values, errors, touched, setFieldValue}) => (
-          <Form>
-            <h2>4. Выберите любимого котика</h2>
+      <Step title="4. Выберите любимого котика">
+        <Formik
+          initialValues={initialValues}
+          validateOnChange={false}
+          validationSchema={ConfirmationSchema}
+          onSubmit={onSubmit}
+        >
+          {({values, errors, touched, setFieldValue}) => (
+            <Form>
+              <Step.Content>
+                <Form.Row>
+                  <ImageSwitchField name="animal" options={animalOptions} />
+                </Form.Row>
+              </Step.Content>
 
-            <Form.Row>
-              <ImageSwitch
-                options={animalOptions}
-                value={values.animal}
-                onChange={(option) => setFieldValue('animal', option)}
-              />
-              {touched.animal && errors.animal && (
-                <FieldError message={errors.animal.type} />
-              )}
-            </Form.Row>
+              <Step.Actions>
+                <Button
+                  variant="accent"
+                  type="button"
+                  disabled={!hasPrevious}
+                  onClick={onBack}
+                >
+                  Назад
+                </Button>
 
-            <Button variant="accent" type="button" disabled={!hasPrevious}>
-              Назад
-            </Button>
-
-            <Button variant="primary" type="submit">
-              Завершить
-            </Button>
-          </Form>
-        )}
-      </Formik>
+                <Button variant="primary" type="submit">
+                  Завершить
+                </Button>
+              </Step.Actions>
+            </Form>
+          )}
+        </Formik>
+      </Step>
     );
   }
 }

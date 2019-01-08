@@ -2,13 +2,14 @@ import * as Yup from 'yup';
 
 const PersonalInfoSchema = Yup.object().shape({
   firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, 'подозрительно коротко')
+    .max(50, 'это уже чересчур!')
+    .required('укажите имя'),
 
   email: Yup.string()
-    .email('Invalid email')
-    .required('Required')
+    .matches(/@/, 'в адресе должен быть символ «@»')
+    .email('некорректный e-mail')
+    .required('укажите e-mail')
 });
 
 export default PersonalInfoSchema;

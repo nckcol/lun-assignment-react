@@ -9,20 +9,32 @@
 
 .App-container {
   min-height: 420px;
-  width: 360px;
+  width: 680px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .App-progress {
-  margin-bottom: 24px;
   flex: 0 0 auto;
+  width: 320px;
+  display: flex;
+  margin: 0 auto 16px;
+}
+
+.App-progressItem {
+  margin-right: 8px;
+}
+
+.App-progressItem:last-child {
+  margin-right: 0;
 }
 
 .App-content {
   margin-bottom: 24px;
   flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
 }
 
 .App-actions {

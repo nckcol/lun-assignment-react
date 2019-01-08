@@ -5,6 +5,7 @@ import Form from '../form/form';
 import Button from '../button/button';
 import Autocomplete from '../autocomplete/autocomplete-manager';
 import LocationSchema from '../../schema/location-schema';
+import Step from '../step/step';
 
 const selectName = (item) => item.name;
 const selectId = (item) => item.id;
@@ -50,50 +51,66 @@ function CityAutocomplete({form, options, ...inputProps}) {
 
 class LocationStep extends Component {
   render() {
-    const {hasPrevious, location, countryList, cityList, onSubmit} = this.props;
+    const {
+      hasPrevious,
+      location,
+      countryList,
+      cityList,
+      onSubmit,
+      onBack
+    } = this.props;
     const initialValues = location || {countryId: null, cityId: null};
 
     return (
-      <Formik
-        initialValues={initialValues}
-        validationSchema={LocationSchema}
-        validateOnChange={false}
-        onSubmit={onSubmit}
-      >
-        <Form>
-          <h2>2. Выберите страну и город</h2>
+      <Step title="2. Выберите страну и город">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={LocationSchema}
+          validateOnChange={false}
+          onSubmit={onSubmit}
+        >
+          <Form>
+            <Step.Content>
+              <Form.Row>
+                <Field
+                  name="countryId"
+                  placeholder="Страна"
+                  options={countryList}
+                  selectTitle={selectName}
+                  selectValue={selectId}
+                  component={CountryAutocomplete}
+                />
+              </Form.Row>
 
-          <Form.Row>
-            <Field
-              name="countryId"
-              placeholder="Страна"
-              options={countryList}
-              selectTitle={selectName}
-              selectValue={selectId}
-              component={CountryAutocomplete}
-            />
-          </Form.Row>
+              <Form.Row>
+                <Field
+                  name="cityId"
+                  placeholder="Город"
+                  options={cityList}
+                  selectTitle={selectName}
+                  selectValue={selectId}
+                  component={CityAutocomplete}
+                />
+              </Form.Row>
+            </Step.Content>
 
-          <Form.Row>
-            <Field
-              name="cityId"
-              placeholder="Город"
-              options={cityList}
-              selectTitle={selectName}
-              selectValue={selectId}
-              component={CityAutocomplete}
-            />
-          </Form.Row>
+            <Step.Actions>
+              <Button
+                variant="accent"
+                type="button"
+                disabled={!hasPrevious}
+                onClick={onBack}
+              >
+                Назад
+              </Button>
 
-          <Button variant="accent" type="button" disabled={!hasPrevious}>
-            Назад
-          </Button>
-
-          <Button variant="accent" type="submit">
-            Далее
-          </Button>
-        </Form>
-      </Formik>
+              <Button variant="accent" type="submit">
+                Далее
+              </Button>
+            </Step.Actions>
+          </Form>
+        </Formik>
+      </Step>
     );
   }
 }

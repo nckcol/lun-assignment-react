@@ -29,7 +29,7 @@ class ImageSwitch extends Component {
     return (
       <div className="ImageSwitch">
         {options.map((item, index) => (
-          <div className="ImageSwitch-optionHolder">
+          <div key={index} className="ImageSwitch-optionHolder">
             <Button
               option={item}
               active={value && value.id === item.id}
