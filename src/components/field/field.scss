@@ -4,10 +4,19 @@
   &-errorMessage {
     color: #ff0000;
     position: absolute;
+    display: inline-block;
     left: 100%;
     min-width: 320px;
     top: 50%;
     transform: translateY(-50%);
     margin-left: 8px;
+
+    @media (max-width: 720px) {
+      position: static;
+      margin-left: 0;
+      margin-top: 4px;
+      min-width: 0;
+      transform: none;
+    }
   }
 }

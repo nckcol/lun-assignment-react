@@ -1,9 +1,20 @@
 .ImageSwitch {
   display: flex;
-  margin: -8px;
+  margin: -5px;
+
+  @media (max-width: 720px) {
+    flex-wrap: wrap;
+  }
 
   &-optionHolder {
     padding: 5px;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+
+    @media (max-width: 720px) {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
   }
 
   &-option {
@@ -34,5 +45,9 @@
   &-picture {
     margin: -3px;
     vertical-align: middle;
+
+    @media (max-width: 720px) {
+      width: 100%;
+    }
   }
 }

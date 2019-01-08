@@ -2,8 +2,16 @@
   display: flex;
   align-items: center;
 
+  @media (max-width: 720px) {
+    display: block;
+  }
+
   &-checkbox {
     flex: 0 0 160px;
+
+    @media (max-width: 720px) {
+      margin-bottom: 8px;
+    }
   }
 
   &-input {

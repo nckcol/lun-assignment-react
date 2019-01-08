@@ -5,6 +5,7 @@ import Button from '../button/button';
 import ConfirmationSchema from '../../schema/confirmation-schema';
 import Step from '../step/step';
 import ImageSwitchField from '../image-switch-field/image-switch-field';
+import './confirmation-step.scss';
 
 class ConfirmationStep extends Component {
   render() {
@@ -28,7 +29,7 @@ class ConfirmationStep extends Component {
           onSubmit={onSubmit}
         >
           {({values, errors, touched, setFieldValue}) => (
-            <Form>
+            <Form className="ConfirmationStep">
               <Step.Content>
                 <Form.Row>
                   <ImageSwitchField name="animal" options={animalOptions} />

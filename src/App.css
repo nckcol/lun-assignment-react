@@ -7,13 +7,30 @@
   justify-content: center;
 }
 
+@media (max-width: 720px) {
+  .App {
+    display: block;
+    height: 100%;
+  }
+}
+
 .App-container {
-  min-height: 420px;
   width: 680px;
   max-width: 100%;
+  min-height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+  .App-container {
+    padding: 32px;
+    width: auto;
+    max-width: none;
+    min-height: 100%;
+  }
 }
 
 .App-progress {
@@ -21,6 +38,13 @@
   width: 320px;
   display: flex;
   margin: 0 auto 16px;
+}
+
+@media (max-width: 720px) {
+  .App-progress {
+    width: auto;
+    margin: 0 0 16px;
+  }
 }
 
 .App-progressItem {
@@ -32,12 +56,15 @@
 }
 
 .App-content {
-  margin-bottom: 24px;
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
 }
 
-.App-actions {
-  flex: 0 0 auto;
+@media (max-width: 720px) {
+  .App-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
 }

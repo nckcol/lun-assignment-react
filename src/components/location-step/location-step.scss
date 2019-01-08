@@ -1,8 +1,5 @@
-.StartStep {
-  width: 320px;
-
+.LocationStep {
   @media (max-width: 720px) {
-    width: auto;
     display: flex;
     flex-direction: column;
     align-items: stretch;

@@ -6,6 +6,7 @@ import SocialInput from '../social-input/social-input';
 import FieldError from '../field-error/field-error';
 import SocialSchema from '../../schema/social-schema';
 import Step from '../step/step';
+import './social-step.scss';
 
 class SocialStep extends Component {
   render() {
@@ -26,9 +27,9 @@ class SocialStep extends Component {
           onSubmit={onSubmit}
         >
           {({values, errors, touched, setFieldValue}) => (
-            <Form>
+            <Form className="SocialStep">
               <Step.Content>
-                <div style={{marginRight: '-80px'}}>
+                <div className="SocialStep-innerFields">
                   <Form.Row>
                     <SocialInput
                       name="facebook"

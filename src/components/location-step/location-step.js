@@ -7,6 +7,8 @@ import Autocomplete from '../autocomplete/autocomplete-manager';
 import LocationSchema from '../../schema/location-schema';
 import Step from '../step/step';
 
+import './location-step.scss';
+
 const selectName = (item) => item.name;
 const selectId = (item) => item.id;
 
@@ -69,7 +71,7 @@ class LocationStep extends Component {
           validateOnChange={false}
           onSubmit={onSubmit}
         >
-          <Form>
+          <Form className="LocationStep">
             <Step.Content>
               <Form.Row>
                 <Field

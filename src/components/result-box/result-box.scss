@@ -8,6 +8,11 @@
   border-radius: 2px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 
+  @media (max-width: 720px) {
+    flex-direction: column;
+    width: auto;
+  }
+
   &-infoColumn {
     display: flex;
     flex-direction: column;
@@ -23,10 +28,12 @@
 
   &-email {
     color: #333;
+    margin-bottom: 4px;
   }
 
   &-location {
     color: #333;
+    margin-bottom: 4px;
   }
 
   &-imageColumn {
@@ -34,6 +41,12 @@
     flex: 0 0 auto;
     border-radius: 2px;
     overflow: hidden;
+
+    @media (max-width: 720px) {
+      margin-top: 24px;
+      margin-left: 0;
+      text-align: center;
+    }
   }
 
   &-socialItemTitle {
