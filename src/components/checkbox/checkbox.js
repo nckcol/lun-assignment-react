@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './checkbox.scss';
 
 function Checkbox({label, ...inputProps}) {

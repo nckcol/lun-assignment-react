@@ -1,12 +1,14 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import Button from './components/button/button';
 import StartStep from './components/start-step/start-step';
 import LocationStep from './components/location-step/location-step';
+import SocialStep from './components/social-step/social-step';
+import ConfirmationStep from './components/confirmation-step/confirmation-step';
 import countryTable from './countries.json';
 import cityTable from './cities.json';
+import animalTable from './animals.json';
 import './App.css';
-import SocialStep from './components/social-step/social-step';
 
 const countryList = Object.entries(countryTable).map(([id, name]) => ({
   id: parseInt(id, 10),
@@ -18,12 +20,20 @@ const cityList = Object.entries(cityTable).map(([id, city]) => ({
   id: parseInt(id, 10)
 }));
 
+const animalList = Object.entries(animalTable).map(([id, animal]) => ({
+  ...animal,
+  id: parseInt(id, 10)
+}));
+
+function shuffle(list) {
+  return list.sort(() => Math.random() - 0.5);
+}
+
 function Progress({steps, active}) {
   return (
     <Route
       path="/:name?"
       render={({location, history}) => {
-        console.log(location);
         const currentIndex = steps.indexOf(location.pathname);
         return steps.map((path, index) => (
           <Button
@@ -51,6 +61,24 @@ class App extends Component {
     social: null,
     confirmation: null
   };
+
+  state = {
+    personalInfo: {
+      firstName: 'Nick',
+      email: 'nckcol@gmail.com'
+    },
+    location: {
+      countryId: 1,
+      cityId: 1
+    },
+    social: {},
+    confirmation: null
+  };
+
+  componentWillMount() {
+    this.shuffledAnimalList = shuffle(animalList);
+  }
+
   render() {
     const {personalInfo, location, social, confirmation} = this.state;
 
@@ -118,7 +146,14 @@ class App extends Component {
                 <Route
                   path="/confirm"
                   exact
-                  render={() => <span>Confirm</span>}
+                  render={({history}) => (
+                    <ConfirmationStep
+                      hasPrevious
+                      animalOptions={this.shuffledAnimalList}
+                      confirmation={confirmation}
+                      onSubmit={this.handleConfirmationStepSubmit(history)}
+                    />
+                  )}
                 />
               )}
               {doneConfirmation && (
@@ -155,6 +190,13 @@ class App extends Component {
       social
     });
     history.push('/confirm');
+  };
+
+  handleConfirmationStepSubmit = (history) => (confirmation) => {
+    this.setState({
+      confirmation
+    });
+    history.push('/success');
   };
 }
 

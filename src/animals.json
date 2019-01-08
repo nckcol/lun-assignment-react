@@ -1,0 +1,26 @@
+{
+  "1": {
+    "type": "cat",
+    "normal": "/content/animals/animal-1.jpeg",
+    "double": "/content/animals/animal-1@2x.jpeg",
+    "alt": "Animal 1"
+  },
+  "2": {
+    "type": "cat",
+    "normal": "/content/animals/animal-2.jpeg",
+    "double": "/content/animals/animal-2@2x.jpeg",
+    "alt": "Animal 2"
+  },
+  "3": {
+    "type": "cat",
+    "normal": "/content/animals/animal-3.jpeg",
+    "double": "/content/animals/animal-3@2x.jpeg",
+    "alt": "Animal 3"
+  },
+  "4": {
+    "type": "dog",
+    "normal": "/content/animals/animal-4.jpeg",
+    "double": "/content/animals/animal-4@2x.jpeg",
+    "alt": "Animal 4"
+  }
+}

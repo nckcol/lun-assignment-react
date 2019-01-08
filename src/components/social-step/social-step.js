@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Formik} from 'formik';
 import Form from '../form/form';
 import Button from '../button/button';
-import Checkbox from '../checkbox/checkbox';
 import SocialInput from '../social-input/social-input';
 import FieldError from '../field-error/field-error';
 import SocialSchema from '../../schema/social-schema';
