@@ -5,6 +5,7 @@ import Button from '../button/button';
 import ConfirmationSchema from '../../schema/confirmation-schema';
 import Step from '../step/step';
 import ImageSwitchField from '../image-switch-field/image-switch-field';
+import ArrowBackIcon from '../arrow-back-icon/arrow-back-icon';
 import './confirmation-step.scss';
 
 class ConfirmationStep extends Component {
@@ -43,7 +44,8 @@ class ConfirmationStep extends Component {
                   disabled={!hasPrevious}
                   onClick={onBack}
                 >
-                  Назад
+                  <ArrowBackIcon />
+                  &nbsp;&nbsp;Назад
                 </Button>
 
                 <Button variant="primary" type="submit">

@@ -6,6 +6,8 @@ import Button from '../button/button';
 import Autocomplete from '../autocomplete/autocomplete-manager';
 import LocationSchema from '../../schema/location-schema';
 import Step from '../step/step';
+import ArrowBackIcon from '../arrow-back-icon/arrow-back-icon';
+import ArrowNextIcon from '../arrow-next-icon/arrow-next-icon';
 
 import './location-step.scss';
 
@@ -103,11 +105,13 @@ class LocationStep extends Component {
                 disabled={!hasPrevious}
                 onClick={onBack}
               >
-                Назад
+                <ArrowBackIcon />
+                &nbsp;&nbsp;Назад
               </Button>
 
               <Button variant="accent" type="submit">
-                Далее
+                Далее&nbsp;&nbsp;
+                <ArrowNextIcon />
               </Button>
             </Step.Actions>
           </Form>

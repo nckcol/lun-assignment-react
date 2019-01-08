@@ -5,11 +5,13 @@ import Form from '../form/form';
 import Button from '../button/button';
 import PersonalInfoSchema from '../../schema/personal-info-scema';
 import Step from '../step/step';
+import ArrowNextIcon from '../arrow-next-icon/arrow-next-icon';
+import ArrowBackIcon from '../arrow-back-icon/arrow-back-icon';
 import './start-step.scss';
 
 class StartStep extends Component {
   render() {
-    const {hasPrevious, personalInfo, onSubmit} = this.props;
+    const {personalInfo, onSubmit} = this.props;
     const initialValues = personalInfo || {firstName: '', email: ''};
     return (
       <Step title="1. Введите имя и e-mail">
@@ -29,12 +31,14 @@ class StartStep extends Component {
               </Form.Row>
             </Step.Content>
             <Step.Actions>
-              <Button variant="accent" type="button" disabled={!hasPrevious}>
-                Назад
+              <Button variant="accent" type="button" disabled>
+                <ArrowBackIcon />
+                &nbsp;&nbsp;Назад
               </Button>
 
               <Button variant="accent" type="submit">
-                Далее
+                Далее&nbsp;&nbsp;
+                <ArrowNextIcon />
               </Button>
             </Step.Actions>
           </Form>
