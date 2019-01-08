@@ -1,0 +1,12 @@
+.SocialInput {
+  display: flex;
+  align-items: center;
+
+  &-checkbox {
+    flex: 0 0 160px;
+  }
+
+  &-input {
+    flex: 1 1 auto;
+  }
+}

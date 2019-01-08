@@ -12,12 +12,16 @@
   width: 100%;
   border: 1px solid transparent;
 
+  &--error {
+    border-color: #ff0000;
+  }
+
+  &--small {
+    padding: 8px 16px;
+  }
+
   &::placeholder {
     color: #bbb;
     opacity: 1;
-  }
-
-  &--error {
-    border-color: #ff0000;
   }
 }

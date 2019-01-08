@@ -8,7 +8,7 @@ class Form extends Component {
   static Row = FormRow;
 
   render() {
-    return <FormikForm>{this.props.children}</FormikForm>;
+    return <FormikForm {...this.props} />;
   }
 }
 

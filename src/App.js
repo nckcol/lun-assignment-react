@@ -6,6 +6,7 @@ import LocationStep from './components/location-step/location-step';
 import countryTable from './countries.json';
 import cityTable from './cities.json';
 import './App.css';
+import SocialStep from './components/social-step/social-step';
 
 const countryList = Object.entries(countryTable).map(([id, name]) => ({
   id: parseInt(id, 10),
@@ -104,7 +105,13 @@ class App extends Component {
                 <Route
                   path="/social"
                   exact
-                  render={() => <span>Social</span>}
+                  render={({history}) => (
+                    <SocialStep
+                      hasPrevious
+                      social={social}
+                      onSubmit={this.handleSocialStepSubmit(history)}
+                    />
+                  )}
                 />
               )}
               {doneSocial && (
@@ -141,6 +148,13 @@ class App extends Component {
       location
     });
     history.push('/social');
+  };
+
+  handleSocialStepSubmit = (history) => (social) => {
+    this.setState({
+      social
+    });
+    history.push('/confirm');
   };
 }
 
