@@ -71,7 +71,6 @@ class LocationStep extends Component {
               selectTitle={selectName}
               selectValue={selectId}
               component={CountryAutocomplete}
-              autoFocus
             />
           </Form.Row>
 
