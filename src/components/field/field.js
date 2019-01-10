@@ -5,9 +5,13 @@ import isFunction from '../../utils/is-function';
 
 import './field.scss';
 
+function FieldInput({form, ...inputProps}) {
+  return <Input {...inputProps} />;
+}
+
 class Field extends Component {
   static defaultProps = {
-    component: Input
+    component: FieldInput
   };
 
   render() {

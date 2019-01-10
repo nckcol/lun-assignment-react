@@ -451,8 +451,10 @@ class AutocompleteManager extends Component {
     }
 
     if (KEY_RETURN === code) {
-      e.preventDefault();
-      this.apply();
+      if (this.hasToShowOptions()) {
+        e.preventDefault();
+        this.apply();
+      }
       return;
     }
 
